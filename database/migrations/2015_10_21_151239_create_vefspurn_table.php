@@ -12,7 +12,7 @@ class CreateVefspurnTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('vefspurn', function(Blueprint $table)
+		Schema::create('vefspurns', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('title');
@@ -30,7 +30,7 @@ class CreateVefspurnTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('vefspurn');
+		Schema::drop('vefspurns');
 	}
 
 }
