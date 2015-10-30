@@ -17,8 +17,10 @@ Route::get('index/{id}', 'PagesController@profile');
 Route::get('/signup', 'PagesController@signUp');
 Route::post('/', 'PagesController@store');
 
-Route::post('/vefsida', 'PagesController@vefsidur');
-Route::post('/vefsida/{id}', 'PagesController@show');
+Route::get('/vefsida', 'PagesController@vefsidur');
+Route::get('/create', 'PagesController@create');
+Route::get('/vefsida/{id}', 'PagesController@show');
+Route::post('/vefsida', 'PagesController@VefStore');
 
 Route::get('home', 'HomeController@index');
 

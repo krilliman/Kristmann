@@ -48,18 +48,21 @@
 								<li><a href="{{url('/index', $user->id)}}">Profile</a></li>
 							</ul>
 						</li>
-					@endif
 				</ul>
-			</div>
+			</div
+					 	@endif
 		</div>
 	</nav>
+
 	<div id="wrapper">
+			@if (Auth::guest())
+			@else
              <div class="sidebar-wrapper" >
                        <ul class="nav">
                            <li class="col-md-2" >
                                <ul class="nav nav-second-level">
                                    <li>
-                                       <a href="/vefsidur">Vefsíður</a>
+                                       <a href="/vefsida">Vefsíður</a>
                                    </li>
                                    <li>
                                        <a href="#">Second Level Item</a>
@@ -76,6 +79,7 @@
                                </ul>
                                <!-- /.nav-second-level -->
                            </li>
+													 @endif
 													 <div  class="col-md-5" >
 													 	@yield('content')
 													</div>

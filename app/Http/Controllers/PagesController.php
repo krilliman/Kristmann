@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
+
 use App\User;
+use App\Vefspurn;
 use App\Http\Requests;
 //use App\Http\Controllers\Controller;
 use App\config;
@@ -91,6 +93,49 @@ class PagesController extends Controller {
 			$input['password'] = bcrypt($input['password']);
 		User::create($input);
 		return redirect('/');
+	}
+  public function vefsidur()
+  {
+    if (Auth::guest())
+          return view('auth.login');
+
+    else
+    {
+          $user = Auth::user();
+          $vefsida = Vefspurn::latest('published_at')->get();
+          return view('vefsida', compact('vefsida', 'user'));
+        }
+  }
+  public function show ($id)
+  {
+      if (Auth::guest())
+        return view('auth.login');
+
+        else
+        {
+        $user = Auth::user();
+        $vefsida = Vefspurn::findOrFail($id);
+
+        return view('show', compact('vefsida','user'));
+      }
+  }
+public function create()
+{
+  if (Auth::guest())
+        return view('auth.login');
+
+  else
+        {
+        $user = Auth::user();
+        return view('create',  compact('user'));
+      }
+}
+  public function VefStore()
+	{
+
+			$input = Request::all();
+		Vefspurn::create($input);
+		return redirect('/vefsida');
 	}
 
 }
