@@ -80,8 +80,8 @@
 
    </div>
  </div>
- <script src="/pulic/js/jquery-1.7.1.min.js" type="text/javascript"></script>
- <script src="/public/js/jqbar.js" type="text/javascript"></script>
+ <script src="js/jquery-1.7.1.min.js" type="text/javascript"></script>
+ <script src="js/jqbar.js" type="text/javascript"></script>
 
  <script type="text/javascript">
   $(document).ready(function () {
