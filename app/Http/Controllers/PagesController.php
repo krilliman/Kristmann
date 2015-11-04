@@ -184,6 +184,40 @@ public function createverk()
 		Vefspurn::create($input);
 		return redirect('/vefsida');
 	}
+  public function edit($id)
+  {
+    if (Auth::guest())
+      return view('auth.login');
+
+      else
+      {
+      $user = Auth::user();
+      $vefsida = Vefspurn::findOrFail($id);
+      //dd($vefsida);
+
+      return view('VefEdit', compact('vefsida','user'));
+    }
+  }
+  public function edited($id)
+  {
+    if (Auth::guest())
+        return view('auth.login');
+
+        else
+        {
+        $user = Auth::user();
+        $input = Request::all();
+        $vefsida = Vefspurn::find($input['id']);
+        //dd($vefsida);
+    $vefsida->title = $input['title'];
+    $vefsida->body = $input['body'];
+
+    $vefsida->save();
+    return view('show', compact('user','vefsida'));
+  }
+
+  }
+
 
 
   public function VerkStore()
