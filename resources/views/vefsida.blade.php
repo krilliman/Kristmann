@@ -19,6 +19,7 @@
       </h2>
 
       <div class="body">{{ $vefsida->body }}</div>
+
     </article>
     @endforeach
 
