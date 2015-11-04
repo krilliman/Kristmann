@@ -53,8 +53,8 @@
 					 	@endif
 		</div>
 	</nav>
-
 	<div id="wrapper">
+
 			@if (Auth::guest())
 			@else
              <div class="sidebar-wrapper" >
@@ -91,6 +91,7 @@
            </nav>
          </div>
 
+
          <div id="page-wrapper">
  			 <div class="row">
                  <div class="col-lg-12">
@@ -106,6 +107,12 @@
          </div>
      </div>
 
+		 <div class="navbar navbar-default navbar-fixed-bottom">
+		     <div class="container">
+		       <p class="navbar-text pull-left">© 2015 - Site Built By Helgi & Kristmann.
+		       </p>
+		     </div>
+		 </div>
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>

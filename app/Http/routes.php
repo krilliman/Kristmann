@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'PagesController@indextest');
+Route::get('/', 'PagesController@index');
 Route::get('/index', 'PagesController@index');
 Route::get('index/{id}', 'PagesController@profile');
 Route::get('/signup', 'PagesController@signUp');
@@ -20,7 +20,10 @@ Route::post('/', 'PagesController@store');
 Route::get('/vefsida', 'PagesController@vefsidur');
 Route::get('/create', 'PagesController@create');
 Route::get('/vefsida/{id}', 'PagesController@show');
+Route::post('/vefsida/{id}', 'PagesController@edited');
 Route::post('/vefsida', 'PagesController@VefStore');
+Route::get('/Edit/{id}', 'PagesController@edit');
+
 
 Route::get('home', 'HomeController@index');
 
