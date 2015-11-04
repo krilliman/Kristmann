@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'PagesController@indextest');
+Route::get('/', 'PagesController@index');
 Route::get('/index', 'PagesController@index');
 Route::get('index/{id}', 'PagesController@profile');
 Route::get('/signup', 'PagesController@signUp');
@@ -25,12 +25,18 @@ Route::get('/create', 'PagesController@create');
 Route::get('/createverk', 'PagesController@createverk');
 
 Route::get('/vefsida/{id}', 'PagesController@show');
+
 Route::get('/verktakar/{id}', 'PagesController@showverk');
 
 Route::post('/vefsida', 'PagesController@VefStore');
 Route::post('/verktakar', 'PagesController@VerkStore');
 
 Route::get('/setphoto', 'PagesController@PhotoId');
+
+Route::post('/vefsida/{id}', 'PagesController@edited');
+Route::get('/Edit/{id}', 'PagesController@edit');
+
+
 
 Route::get('home', 'HomeController@index');
 
