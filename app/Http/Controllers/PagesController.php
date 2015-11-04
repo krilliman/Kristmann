@@ -193,13 +193,13 @@ public function createverk()
     return redirect('/verktakar');
   }
 
-public function PhotoId($id)
+public function PhotoId()
   {
-    $user = Auth::findOrFail();
+    $user = Auth::user();
     $filename = 'Pomynd';
-    $destinationpath = Request::profilephoto();
+    $destinationpath = '$user->profilephoto';
 
-    $input = Request::file('photo')->move($destinationpath, $filename + $user->$id);
+    $input = Request::file('photo')->move($destinationpath, $filename + $user->id);
     return view('profile', compact('user'));
   }
 }
