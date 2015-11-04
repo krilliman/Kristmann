@@ -3,6 +3,7 @@
 
 use App\User;
 use App\Vefspurn;
+use App\Verktakar;
 use App\Http\Requests;
 //use App\Http\Controllers\Controller;
 use App\config;
@@ -61,19 +62,21 @@ class PagesController extends Controller {
 	}
 		*/
 
-    public function indextest()
-    {
-      return view('auth.login');
-    }
-      public function index()
-      {
-        if (Auth::guest())
-        return view('auth.login');
+  public function indextest()
+  {
+    return view('auth.login');
+  }
 
-      else
-        $user = Auth::user();
-        return view('indextest2', compact('user'));
-      }
+  public function index()
+    {
+      if (Auth::guest())
+      return view('auth.login');
+
+    else
+      $user = Auth::user();
+      return view('indextest2', compact('user'));
+    }
+
   public function signUp()
 	{
 			return view('auth.register');
@@ -94,6 +97,7 @@ class PagesController extends Controller {
 		User::create($input);
 		return redirect('/');
 	}
+
   public function vefsidur()
   {
     if (Auth::guest())
@@ -105,6 +109,20 @@ class PagesController extends Controller {
           $vefsida = Vefspurn::latest('published_at')->get();
           return view('vefsida', compact('vefsida', 'user'));
         }
+  }
+
+  public function verktak()
+  {
+    if (Auth::guest())
+          return view('auth.login');
+
+    else
+    {
+          $user = Auth::user();
+          $verk = Verktakar::latest('published_at')->get();
+          return view('verktakar', compact('verk', 'user'));
+
+    }
   }
   public function show ($id)
   {
@@ -130,6 +148,19 @@ public function create()
         return view('create',  compact('user'));
       }
 }
+
+public function createverk()
+{
+  if (Auth::guest())
+        return view('auth.login');
+
+  else
+        {
+        $user = Auth::user();
+        return view('createVerk',  compact('user'));
+      }
+}
+
   public function VefStore()
 	{
 
@@ -138,4 +169,21 @@ public function create()
 		return redirect('/vefsida');
 	}
 
+
+  public function VerkStore()
+  {
+    $input = Request::all();
+    Verktakar::Create($input);
+    return redirect('/verktakar');
+  }
+
+public function PhotoId($id)
+  {
+    $user = Auth::findOrFail();
+    $filename = 'Pomynd';
+    $destinationpath = Request::profilephoto();
+
+    $input = Request::file('photo')->move($destinationpath, $filename + $user->$id);
+    return view('profile', compact('user'));
+  }
 }
