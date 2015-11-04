@@ -124,6 +124,7 @@ class PagesController extends Controller {
 
     }
   }
+
   public function show ($id)
   {
       if (Auth::guest())
@@ -137,6 +138,21 @@ class PagesController extends Controller {
         return view('show', compact('vefsida','user'));
       }
   }
+
+  public function showverk ($id)
+  {
+      if (Auth::guest())
+        return view('auth.login');
+
+        else
+        {
+        $user = Auth::user();
+        $verk = Verktakar::findOrFail($id);
+
+        return view('showverk', compact('verk','user'));
+      }
+  }
+
 public function create()
 {
   if (Auth::guest())

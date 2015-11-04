@@ -25,6 +25,7 @@ Route::get('/create', 'PagesController@create');
 Route::get('/createverk', 'PagesController@createverk');
 
 Route::get('/vefsida/{id}', 'PagesController@show');
+Route::get('/verktakar/{id}', 'PagesController@showverk');
 
 Route::post('/vefsida', 'PagesController@VefStore');
 Route::post('/verktakar', 'PagesController@VerkStore');
