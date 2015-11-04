@@ -3,12 +3,20 @@ body{
 	font-size: 18px;
 	color: #383838;
 	line-height: 30px;
+<<<<<<< HEAD
 	line-height: 1.5;
 }
 
 .topbottom {
 margin: 6% auto;
 }
+=======
+	background: #1b7e5a;
+	line-height: 1.5;
+}
+
+.topbottom {margin: 6% auto;}
+>>>>>>> 4c5adcda66ab6e1010a3ad5bbc8ef044ea1ac161
 
 a, a:hover{
 	text-decoration: none;
@@ -54,6 +62,10 @@ a, a:hover{
 	padding-left: 15px;
 	display: inline-block;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4c5adcda66ab6e1010a3ad5bbc8ef044ea1ac161
 .homeabout{
 	background: #fff;
 	margin: 0 !important;
@@ -319,7 +331,11 @@ a, a:hover{
 			padding-right: 45px;
 		 }
 		 .span5{background-color:#232323;}
+<<<<<<< HEAD
 		 .span7{background-color:#D3D3D3;}
+=======
+		 .span7{background-color:#ffffff;}
+>>>>>>> 4c5adcda66ab6e1010a3ad5bbc8ef044ea1ac161
 
 
 .user-tip {
