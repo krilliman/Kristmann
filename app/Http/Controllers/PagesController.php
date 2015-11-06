@@ -4,63 +4,15 @@
 use App\User;
 use App\Vefspurn;
 use App\Verktakar;
+use App\Vefcomments;
 use App\Http\Requests;
 //use App\Http\Controllers\Controller;
 use App\config;
 use Request;
+use Input;
 use Auth;
 
 class PagesController extends Controller {
-
-	//
-		/*return view ('pages.about')->with([
-	public function about ()
-	{
-
-		//$name ='Jeffrey <span style="color: red;">Way</span>';
-
-			'first' => 'Jeffrey',
-			'last' => 'Way'
-			]);
-		*/
-		/*$data = [];
-		$data['first'] = 'Helgi';
-		$data['last'] = 'sigur';
-		$first = 'Fox';
-		$last = 'Mulder';
-		$people = [
-			'Taylor Otwell', 'Dayle Rees', 'Eric Barnes'
-		];
-		$people = [];
- 		return view ('pages.about', compact('people'));
-	}
-	public function contact ()
-	{
-		return view('pages.contact');
-	}
-	public function login()
-	{
-		return view('auth/login');
-	}
-
-
-	public function signUp()
-	{
-			return view('auth.register');
-	}
-
-	public function store()
-	{
-
-			$input = Request::all();
-			$user = new User;
-			$input['password'] = bcrypt($input['password']);
-		User::create($input);
-		return redirect('/');
-
-
-	}
-		*/
 
   public function indextest()
   {
@@ -83,9 +35,16 @@ class PagesController extends Controller {
 	}
   public function profile($id)
 	{
+    $curruser = Auth::user();
     $user = User::findOrFail($id);
 
+    if($user->id == $curruser->id)
+    {
 		return view('profile', compact('user'));
+    }
+    else {
+      return view('profileguest', compact('user'));
+    }
 	}
 
   public function store()
@@ -94,6 +53,7 @@ class PagesController extends Controller {
 			$input = Request::all();
 			$user = new User;
 			$input['password'] = bcrypt($input['password']);
+      $input['profilephoto'] = '/images/alfa.png';
 		User::create($input);
 		return redirect('/');
 	}
@@ -179,46 +139,10 @@ public function createverk()
 
   public function VefStore()
 	{
-
-			$input = Request::all();
+		$input = Request::all();
 		Vefspurn::create($input);
 		return redirect('/vefsida');
 	}
-  public function edit($id)
-  {
-    if (Auth::guest())
-      return view('auth.login');
-
-      else
-      {
-      $user = Auth::user();
-      $vefsida = Vefspurn::findOrFail($id);
-      //dd($vefsida);
-
-      return view('VefEdit', compact('vefsida','user'));
-    }
-  }
-  public function edited($id)
-  {
-    if (Auth::guest())
-        return view('auth.login');
-
-        else
-        {
-        $user = Auth::user();
-        $input = Request::all();
-        $vefsida = Vefspurn::find($input['id']);
-        //dd($vefsida);
-    $vefsida->title = $input['title'];
-    $vefsida->body = $input['body'];
-
-    $vefsida->save();
-    return view('show', compact('user','vefsida'));
-  }
-
-  }
-
-
 
   public function VerkStore()
   {
@@ -227,13 +151,39 @@ public function createverk()
     return redirect('/verktakar');
   }
 
-public function PhotoId()
+  public function PhotoId()
+{
+    $user = Auth::user();
+    $image_name = Request::file('photo')->getClientOriginalName();
+    $unitname = $user->id . $image_name;
+    $input = Request::file('photo')->move(base_path().'/public/images', $unitname);
+    $post = (Request::except(['photo']));
+    $post['photo'] = $unitname;
+
+    $pathToFile = '/images/' . $post['photo'];
+
+
+    $user->profilephoto = $pathToFile;
+    $user->save();
+    return redirect()->back();
+  }
+
+  public function editDescription()
   {
     $user = Auth::user();
-    $filename = 'Pomynd';
-    $destinationpath = '$user->profilephoto';
+    $input = Request::all();
 
-    $input = Request::file('photo')->move($destinationpath, $filename + $user->id);
-    return view('profile', compact('user'));
+    $user->description = $input['descritionEdited'];
+    $user->save();
+    return redirect()->back();
   }
+  public function vefComments()
+  {
+
+      $user = Auth::user();
+      $input = Request::all();
+      Vefcomments::Create($input);
+      return redirect()->back();
+  }
+
 }

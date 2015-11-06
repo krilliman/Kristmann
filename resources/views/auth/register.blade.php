@@ -48,7 +48,10 @@
 								{!! Form::label('Description', 'Description:') !!}
 								{!! Form::textarea('description', null, ['class' => 'form-horizontal']) !!}
 							</div>
-
+							<div Class="form-group">
+								{!! Form::hidden('Profilephoto', 'Profilephoto') !!}
+								{!! Form::hidden('profilephoto', null, ['class' => 'form-horizontal'])!!}
+							</div>
 							<div Class="form-group">
 								{!! Form::submit('Sign Up', ['class' => 'btn btn-primary']) !!}
 							</div>

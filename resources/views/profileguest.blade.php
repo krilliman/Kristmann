@@ -10,7 +10,7 @@
 
  <title>Responsive 'Flat Profile' HTML Portfolio Template</title>
  <link href="css/demo.css" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="../css/jqbar.css" />
+ <link rel="stylesheet" href="../css/jqbar.css" />
  <link rel="stylesheet" type="text/css" href="../css/bootstrap-responsive.css">
 
 
@@ -38,20 +38,6 @@
      <div class="span5">
        <img src="../{{$user->profilephoto}}" alt="Profile Avatar"  class="avatar">
 
-       <div class="navigation">
-         <div>
-           <ul>
-             <li>
-               <img src="../img/about-icon.png">
-               <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Velja Nýja Mynd</button>
-               <!-- Modal content-->
-             </li>
-             <li>
-               <img src="../img/about-icon.png">
-               <button type="button" class="btn btn-primary btn-lg" id="button_breyta" >Breyta lýsingu</buton>
-           </ul>
-         </div>
-       </div>
      </div>
 
      <div class="span7 homeabout" id="De_scription">
@@ -65,20 +51,6 @@
 
            </div>
          </div>
-         <form class="form-horizontal" role="form" method="POST" action="/reddescrip">
-           <input type="hidden" name="_token" value="{{ csrf_token() }}">
-       <div class="span7 homeabout" id="edit_scription">
-         <div class="person">
-           <span class="name">{{ $user->firstname }} {{ $user->lastname }} - ( {{$user->username}} ) - Breyting Á Persónu lýsingu</span>
-         </div>
-         <div class="desciption home">
-           <textarea rows="8" cols="80" name="descritionEdited">
-             {{ $user->description }}
-           </textarea>
-           <button type="submit" class="btn btn-danger btn-lg" id="desciption_breytt" >Breyta</button>
-             </div>
-           </div>
-         </form>
          </div>
        </div>
 

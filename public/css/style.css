@@ -160,8 +160,13 @@ a, a:hover{
 
 
 
+#testtest{
+	border-style: dotted;
+}
 
-
+#comments_section{
+	margin-bottom: 400px;
+}
 
 /*----------------------------------------*/
 /*----- Portfolio -----*/
@@ -221,6 +226,13 @@ a, a:hover{
 	border:0;
 	width:31%;
 
+
+}
+#comments{
+	margin-bottom:125px;
+}
+#submit_myndir{
+	margin-bottom: 200px;
 
 }
 

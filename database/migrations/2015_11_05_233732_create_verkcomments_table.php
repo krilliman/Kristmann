@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVerktakarTable extends Migration {
+class CreateVerkcommentsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,14 +12,13 @@ class CreateVerktakarTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('verktakar', function(Blueprint $table)
+		Schema::create('verkcomments', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('title');
-			$table->text('body');
-			$table->text('hofundur');
+			$table->text('post_name');
+			$table->text('comment');
+			$table->text('current_user');
 			$table->timestamps();
-			$table->timestamp('published_at');
 		});
 	}
 
@@ -30,7 +29,7 @@ class CreateVerktakarTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('verktakars');
+		Schema::drop('verkcomments');
 	}
 
 }
