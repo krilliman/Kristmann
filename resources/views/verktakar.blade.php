@@ -18,7 +18,14 @@
 
       </h2>
 
-      <div class="body">{{ $verktakar->body }}</div>
+      <div class="body">@if(strlen($verktakar->body) > 100){{
+
+
+          substr($verktakar->body,0,99) }}...
+        @else
+        {{
+          $verktakar->body}}
+        @endif</div>
     </article>
     @endforeach
 

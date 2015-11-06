@@ -147,9 +147,9 @@ class PagesController extends Controller {
         else
         {
         $user = Auth::user();
-        $verk = Verktakar::findOrFail($id);
+        $verktakar = Verktakar::findOrFail($id);
 
-        return view('showverk', compact('verk','user'));
+        return view('showverk', compact('verktakar','user'));
       }
   }
 
@@ -184,7 +184,7 @@ public function createverk()
 		Vefspurn::create($input);
 		return redirect('/vefsida');
 	}
-  public function edit($id)
+  public function vefedit($id)
   {
     if (Auth::guest())
       return view('auth.login');
@@ -198,7 +198,21 @@ public function createverk()
       return view('VefEdit', compact('vefsida','user'));
     }
   }
-  public function edited($id)
+  public function verkedit($id)
+    {
+      if (Auth::guest())
+        return view('auth.login');
+
+        else
+        {
+        $user = Auth::user();
+        $verktakar = Verktakar::findOrFail($id);
+        //dd($vefsida);
+
+        return view('VerkEdit', compact('verktakar','user'));
+      }
+    }
+  public function vefedited($id)
   {
     if (Auth::guest())
         return view('auth.login');
@@ -215,7 +229,24 @@ public function createverk()
     $vefsida->save();
     return view('show', compact('user','vefsida'));
   }
+}
+  public function verkedited($id)
+  {
+    if (Auth::guest())
+        return view('auth.login');
 
+        else
+        {
+        $user = Auth::user();
+        $input = Request::all();
+        $verktakar = Verktakar::find($input['id']);
+        //dd($vefsida);
+    $verktakar->title = $input['title'];
+    $verktakar->body = $input['body'];
+
+    $verktakar->save();
+    return view('showverk', compact('user','verktakar'));
+  }
   }
 
 

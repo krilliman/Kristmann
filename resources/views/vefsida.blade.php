@@ -17,8 +17,15 @@
         <a href="{{url('/vefsida', $vefsida->id)}}">{{ $vefsida->title }}</a>
 
       </h2>
+      <div class="body">@if(strlen($vefsida->body) > 100){{
 
-      <div class="body">{{ $vefsida->body }}</div>
+
+          substr($vefsida->body,0,99) }}...
+        @else
+        {{
+          $vefsida->body}}
+        @endif
+      </div>
 
     </article>
     @endforeach

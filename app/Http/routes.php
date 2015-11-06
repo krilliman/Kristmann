@@ -33,8 +33,10 @@ Route::post('/verktakar', 'PagesController@VerkStore');
 
 Route::get('/setphoto', 'PagesController@PhotoId');
 
-Route::post('/vefsida/{id}', 'PagesController@edited');
-Route::get('/Edit/{id}', 'PagesController@edit');
+Route::post('/vefsida/{id}', 'PagesController@vefedited');
+Route::get('/Vefsida/Edit/{id}', 'PagesController@vefedit');
+Route::post('/verktakar/{id}', 'PagesController@verkedited');
+Route::get('/Verktakar/Edit/{id}', 'PagesController@verkedit');
 
 
 
