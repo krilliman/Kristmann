@@ -32,7 +32,8 @@ Route::post('/vefsida', 'PagesController@VefStore');
 Route::post('/verktakar', 'PagesController@VerkStore');
 
 Route::post('/setphoto', 'PagesController@PhotoId');
-Route::post('/saveComment', 'PagesController@vefComments');
+Route::post('/VefsaveComment', 'PagesController@vefComments');
+Route::post('/VerksaveComment', 'PagesController@verkComments');
 
 Route::post('/reddescrip', 'PagesController@editDescription');
 

@@ -3,7 +3,7 @@
 @section('content')
   <h1>Write a new fyrirspurn</h1>
 
-  {!! Form::open(['url' => '/vefsida/$vefsida->id' ]) !!}
+  {!! Form::open(['url' => '/vefsida/' . $vefsida->id ]) !!}
       <div Class="form-group">
         {!! Form::label('title', 'Title:') !!}
         {!! Form::text('title', $vefsida->title, ['class' => 'form-control']) !!}

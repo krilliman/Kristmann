@@ -103,7 +103,9 @@
  				@yield('section')
 
              </div>
-             <!-- /#page-wrapper -->
+						 <div class="container">
+						      @yield('hello')
+						    </div>
          </div>
      </div>
 
