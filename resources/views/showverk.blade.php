@@ -2,8 +2,11 @@
 
 @section('content')
 
-  <h1>{{ $verk->title }}</h1>
+  <h1>{{ $verktakar->title }} @if($user->username == $verktakar->hofundur)
+    [<a href="{{url('Verktakar/Edit', $verktakar->id)}}">Edit</a>]
+  @else
+  @endif</h1>
     <article>
-      {{ $verk->body}}
+      {{ $verktakar->body}}
     </article>
 @stop

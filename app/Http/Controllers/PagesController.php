@@ -107,9 +107,9 @@ class PagesController extends Controller {
         else
         {
         $user = Auth::user();
-        $verk = Verktakar::findOrFail($id);
+        $verktakar = Verktakar::findOrFail($id);
 
-        return view('showverk', compact('verk','user'));
+        return view('showverk', compact('verktakar','user'));
       }
   }
 
@@ -144,29 +144,85 @@ public function createverk()
 		return redirect('/vefsida');
 	}
 
-  public function VerkStore()
+  public function vefedit($id)
   {
+    if (Auth::guest())
+      return view('auth.login');
+
+      else
+      {
+      $user = Auth::user();
+      $vefsida = Vefspurn::findOrFail($id);
+      //dd($vefsida);
+
+      return view('VefEdit', compact('vefsida','user'));
+    }
+  }
+  public function verkedit($id)
+    {
+      if (Auth::guest())
+        return view('auth.login');
+
+        else
+        {
+        $user = Auth::user();
+        $verktakar = Verktakar::findOrFail($id);
+        //dd($vefsida);
+
+        return view('VerkEdit', compact('verktakar','user'));
+      }
+    }
+public function vefedited($id){
+  if (Auth::guest())
+      return view('auth.login');
+  else{
+      $user = Auth::user();
+      $input = Request::all();
+      $vefsida = Vefspurn::find($input['id']);
+      //dd($vefsida);
+      $vefsida->title = $input['title'];
+      $vefsida->body = $input['body'];
+
+      $vefsida->save();
+      return view('show', compact('user','vefsida'));
+  }
+}
+
+
+public function VerkStore(){
     $input = Request::all();
     Verktakar::Create($input);
     return redirect('/verktakar');
   }
+  public function verkedited($id)
+  {
+    if (Auth::guest())
+        return view('auth.login');
+    else
+    {
+      $user = Auth::user();
+      $input = Request::all();
+      $verktakar = Verktakar::find($input['id']);
+      //dd($vefsida);
+      $verktakar->title = $input['title'];
+      $verktakar->body = $input['body'];
 
-  public function PhotoId()
-{
-    $user = Auth::user();
-    $image_name = Request::file('photo')->getClientOriginalName();
-    $unitname = $user->id . $image_name;
-    $input = Request::file('photo')->move(base_path().'/public/images', $unitname);
-    $post = (Request::except(['photo']));
-    $post['photo'] = $unitname;
-
-    $pathToFile = '/images/' . $post['photo'];
-
-
-    $user->profilephoto = $pathToFile;
-    $user->save();
-    return redirect()->back();
+      $verktakar->save();
+      return view('showverk', compact('user','verktakar'));
+    }
   }
+public function PhotoId(){
+  $user = Auth::user();
+  $image_name = Request::file('photo')->getClientOriginalName();
+  $unitname = $user->id . $image_name;
+  $input = Request::file('photo')->move(base_path().'/public/images', $unitname);
+  $post = (Request::except(['photo']));
+  $post['photo'] = $unitname;
+  $pathToFile = '/images/' . $post['photo'];
+  $user->profilephoto = $pathToFile;
+  $user->save();
+  return redirect()->back();
+}
 
   public function editDescription()
   {
