@@ -126,3 +126,33 @@ $(document).ready(function(){
 </html>
 
 @stop
+
+@section('hello')
+<form class="form-horizontal" role="form" method="POST" action="/profilesaveComment">
+  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="profile_name" value="{{ $user->username }}">
+  <input type="hidden" name="current_user" value="{{ $curruser->username }}">
+
+@foreach ($comments as $comments)
+  @if($comments->profile_name == $user->username)
+
+<div class="col-md-6 col-md-offset-3">
+  <h1>{{ $comments->current_user }}</h1>
+  <p>{{ $comments->comment }}</p>
+  <!--<div class=" navbar navbar-fixed-bottom col-md-offset-2" id="submit_myndir">
+    <img src="../{{$user->profilephoto}}"  height="50" >
+</div>-->
+</div>
+@else
+@endif
+
+@endforeach
+  <div class=" navbar-bottom col-md-6 col-md-offset-3" id="comments">
+    <label for="comment">Comment:</label>
+    <textarea class="form-control" rows="5" cols="3" name="comment"></textarea>
+    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+  </div>
+</form>
+</div>
+
+@stop
