@@ -5,6 +5,7 @@ use App\User;
 use App\Vefspurn;
 use App\Verktakar;
 use App\Vefcomments;
+use App\Profilecomments;
 use App\Verkcomments;
 use App\Http\Requests;
 //use App\Http\Controllers\Controller;
@@ -38,13 +39,14 @@ class PagesController extends Controller {
 	{
     $curruser = Auth::user();
     $user = User::findOrFail($id);
+    $comments = Profilecomments::latest('created_at')->get();
 
     if($user->id == $curruser->id)
     {
-		return view('profile', compact('user'));
+		return view('profile', compact('user','comments','curruser'));
     }
     else {
-      return view('profileguest', compact('user'));
+      return view('profileguest', compact('user','comments','curruser'));
     }
 	}
 
@@ -251,6 +253,30 @@ public function PhotoId(){
       $input = Request::all();
       Verkcomments::Create($input);
       return redirect()->back();
+  }
+  public function profileComments()
+  {
+
+      $user = Auth::user();
+      $input = Request::all();
+      profilecomments::Create($input);
+      return redirect()->back();
+  }
+  public function contact()
+  {
+
+          $user = Auth::user();
+    return view("/Contact", compact('user'));
+  }
+  public function kristmann()
+  {
+        $user = Auth::user();
+    return view("/Kristmann", compact('user'));
+  }
+  public function helgi()
+  {
+        $user = Auth::user();
+    return view("/Helgi", compact('user'));
   }
 
 }
