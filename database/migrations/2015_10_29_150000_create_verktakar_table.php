@@ -12,12 +12,13 @@ class CreateVerktakarTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('verktakar', function(Blueprint $table)
+		Schema::create('verktakars', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('title');
 			$table->text('body');
 			$table->text('hofundur');
+			$table->text('current_photo');
 			$table->timestamps();
 			$table->timestamp('published_at');
 		});

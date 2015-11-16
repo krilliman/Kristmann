@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVefcommentsTable extends Migration {
+class CreateVerkefnaferillTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,12 @@ class CreateVefcommentsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('vefcomments', function(Blueprint $table)
+		Schema::create('verkefnaferills', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('post_name');
-			$table->string('comment');
-			$table->string('current_user');
-			$table->string('current_userPhoto');
+			$table->string('post_id');
+			$table->string('post_title');
+			$table->string('post_user');
 			$table->timestamps();
 		});
 	}
@@ -30,7 +29,7 @@ class CreateVefcommentsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('vefcomments');
+		Schema::drop('verkefnaferills');
 	}
 
 }

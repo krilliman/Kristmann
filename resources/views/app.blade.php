@@ -19,7 +19,7 @@
 	<![endif]-->
 </head>
 <body>
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -45,7 +45,7 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="/auth/logout">Logout</a></li>
-								<li><a href="{{url('/index', $user->id)}}">Profile</a></li>
+								<li><a href="{{url('/index', $user->username)}}">Profile</a></li>
 							</ul>
 						</li>
 				</ul>

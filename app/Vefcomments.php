@@ -9,7 +9,7 @@ class Vefcomments extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['id', 'post_name', 'comment', 'current_user'];
+	protected $fillable = ['id', 'post_name', 'comment', 'current_user' , 'current_userPhoto'];
 	//
 
 }

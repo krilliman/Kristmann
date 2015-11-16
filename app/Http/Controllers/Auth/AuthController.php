@@ -7,7 +7,11 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-
+?><html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<?php
 class AuthController extends Controller {
 
 	/*
@@ -40,7 +44,24 @@ class AuthController extends Controller {
 	{
 
 		$redirectTo = '/index';
-		?><script> alert("Password Eða Emailið Er Rangt , Reyndu Aftur") </script> <?php
+		?>
+
+		<html>
+		<div class="alert alert-danger" role="alert" id="alertbox">
+				<p class="alert-link">Email eða lykilorðið er vitlaust reyndu aftur</p>
+		</div>
+		<script>
+		$(document).ready(function(){
+	   setTimeout(function(){
+	  $("#alertbox").fadeOut("slow", function () {
+	  $("#alertbox").remove();
+	      });
+
+	}, 1500);
+	 });
+		</script>
+
+		<?php
 		$this->validate($request, [
 			'email' => 'required', 'password' => 'required',
 			]);
