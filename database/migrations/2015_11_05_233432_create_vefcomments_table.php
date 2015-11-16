@@ -18,6 +18,7 @@ class CreateVefcommentsTable extends Migration {
 			$table->string('post_name');
 			$table->string('comment');
 			$table->string('current_user');
+			$table->string('current_userPhoto');
 			$table->timestamps();
 		});
 	}

@@ -9,7 +9,7 @@ class Verktakar extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['id', 'title', 'body','hofundur'];
+	protected $fillable = ['id', 'title', 'body','hofundur', 'current_photo'];
 	//
 
 }

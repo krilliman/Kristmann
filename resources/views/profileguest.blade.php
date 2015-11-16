@@ -36,7 +36,7 @@
    <div class="row-fluid">
 
      <div class="span5">
-       <img src="../{{$user->profilephoto}}" alt="Profile Avatar"  class="avatar">
+       <img src="../{{$user->profilephoto}}" alt="Profile Avatar"  class="avatar" height="439">
 
      </div>
 

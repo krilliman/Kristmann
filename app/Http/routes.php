@@ -13,7 +13,7 @@
 
 Route::get('/', 'PagesController@index');
 Route::get('/index', 'PagesController@index');
-Route::get('index/{id}', 'PagesController@profile');
+Route::get('index/{username}', 'PagesController@profile');
 Route::get('/signup', 'PagesController@signUp');
 Route::post('/', 'PagesController@store');
 
@@ -30,11 +30,16 @@ Route::get('/verktakar/{id}', 'PagesController@showverk');
 
 Route::post('/vefsida', 'PagesController@VefStore');
 Route::post('/verktakar', 'PagesController@VerkStore');
+Route::get('/breytacomment', 'PagesController@breytacomments');
 
 Route::post('/setphoto', 'PagesController@PhotoId');
 Route::post('/VefsaveComment', 'PagesController@vefComments');
 Route::post('/VerksaveComment', 'PagesController@verkComments');
+
 Route::post('/profilesaveComment', 'PagesController@profileComments');
+
+Route::post('/veljamann/{username}', 'PagesController@veljamann');
+
 
 Route::post('/reddescrip', 'PagesController@editDescription');
 

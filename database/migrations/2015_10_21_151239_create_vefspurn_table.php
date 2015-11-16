@@ -18,6 +18,8 @@ class CreateVefspurnTable extends Migration {
 			$table->string('title');
 			$table->text('body');
 			$table->text('hofundur');
+			$table->text('current_photo');
+			$table->text('starfsmadur');
 			$table->timestamps();
 			$table->timestamp('published_at');
 		});

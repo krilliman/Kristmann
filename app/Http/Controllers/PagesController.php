@@ -7,6 +7,7 @@ use App\Verktakar;
 use App\Vefcomments;
 use App\Profilecomments;
 use App\Verkcomments;
+use App\Verkefnaferills;
 use App\Http\Requests;
 //use App\Http\Controllers\Controller;
 use App\config;
@@ -35,15 +36,17 @@ class PagesController extends Controller {
 	{
 			return view('auth.register');
 	}
-  public function profile($id)
+  public function profile($username)
 	{
     $curruser = Auth::user();
+
     $user = User::findOrFail($id);
     $comments = Profilecomments::latest('created_at')->get();
-
+    $verkefnaf = Verkefnaferills::latest('created_at')->get();
     if($user->id == $curruser->id)
     {
-		return view('profile', compact('user','comments','curruser'));
+		return view('profile', compact('user','comments','curruser', 'verkefnaf'));
+
     }
     else {
       return view('profileguest', compact('user','comments','curruser'));
@@ -55,10 +58,19 @@ class PagesController extends Controller {
 
 			$input = Request::all();
 			$user = new User;
-			$input['password'] = bcrypt($input['password']);
-      $input['profilephoto'] = '/images/alfa.png';
-		User::create($input);
-		return redirect('/');
+      if(User::find($input['username']))
+      {
+        ?><script> alert("Username already taken") </script> <?php
+        return redirect()->back();
+
+      }
+      else
+      {
+        $input['password'] = bcrypt($input['password']);
+        $input['profilephoto'] = '/images/alfa.png';
+        User::create($input);
+        return redirect('/');
+      }
 	}
 
   public function vefsidur()
@@ -112,7 +124,7 @@ class PagesController extends Controller {
         {
         $user = Auth::user();
         $verktakar = Verktakar::findOrFail($id);
-        $verkcomments = Verkcomments::latest('created_at')->get();
+        $verkcomments = Verk::latest('created_at')->get();
 
         return view('showverk', compact('verktakar','user','verkcomments'));
       }
@@ -194,7 +206,7 @@ public function vefedited($id){
 }
 
 
-public function VerkStore(){
+  public function VerkStore(){
     $input = Request::all();
     Verktakar::Create($input);
     return redirect('/verktakar');
@@ -254,6 +266,7 @@ public function PhotoId(){
       Verkcomments::Create($input);
       return redirect()->back();
   }
+
   public function profileComments()
   {
 
@@ -277,6 +290,25 @@ public function PhotoId(){
   {
         $user = Auth::user();
     return view("/Helgi", compact('user'));
+  }
+  public function veljamann($username)
+  {
+      $input = Request::all();
+      $vefmann = Vefspurn::find($input['post_id']);
+      $user = User::get()->where('username', $input['post_user'])->first();
+      $user->verkefni = $input['post_title'];
+      $vefmann->starfsmadur = $input['post_user'];
+      $user->save();
+      $vefmann->save();
+
+      Verkefnaferills::Create($input);
+
+      return redirect()->back();
+  }
+
+  public function breytacomments()
+  {
+    
   }
 
 }

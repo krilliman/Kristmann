@@ -36,7 +36,7 @@
    <div class="row-fluid">
 
      <div class="span5">
-       <img src="../{{$user->profilephoto}}" alt="Profile Avatar"  class="avatar">
+       <img src="../{{$user->profilephoto}}" alt="Profile Avatar"  class="avatar" height="439">
 
        <div class="navigation">
          <div>
@@ -49,6 +49,10 @@
              <li>
                <img src="../img/about-icon.png">
                <button type="button" class="btn btn-primary btn-lg" id="button_breyta" >Breyta lýsingu</buton>
+            </li>
+            <li>
+              <img src="../img/about-icon.png">
+              <button type="button" class="btn btn-primary btn-lg" id="verkefnaferil">Skoða Verkefnaferil</buton>
            </ul>
          </div>
        </div>
@@ -64,6 +68,7 @@
          </article>
 
            </div>
+
          </div>
          <form class="form-horizontal" role="form" method="POST" action="/reddescrip">
            <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -79,6 +84,21 @@
              </div>
            </div>
          </form>
+
+         <div class="span7 homeabout" id="verkefna_ferill">
+           <div class="person">
+             <span class="name">{{ $user->firstname }} {{ $user->lastname }} - ( {{$user->username}} ) - VerkefnaFerill</span>
+           </div>
+           <div class="desciption home">
+              <h2>Nýjasta verkefni: {{$user->verkefni}}</h2>
+              <h3>Öll Verkefnin:</h3>
+                @foreach ($verkefnaf as $post_titles)
+                  @if($post_titles->post_user == $user->username)
+                    <a href="{{ url('vefsida', $post_titles->post_id)}}" style="font-size:150%;color:black;">{{$post_titles->post_title}} <br> </a>
+                  @endif
+                @endforeach
+           </div>
+
          </div>
        </div>
 
@@ -89,14 +109,14 @@
            <!-- Modal content-->
            <div class="modal-content">
              <div class="modal-header">
-               <h4 class="modal-title">Modal Header</h4>
+               <h4 class="modal-title">Breyta Um Mynd</h4>
              </div>
              <div class="modal-body">
                <p>Veldu nýja mynd</p>
                <form action="/setphoto" method="POST" enctype="multipart/form-data" files="true">
                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
                  <input type="file" name="photo" accept="image/*">
-                 <input type="submit" value="Staðfesta Mynd">
+                 <input type="submit" class="btn btn-primary btn-lg" value="Staðfesta Mynd">
                </form>
              </div>
 
@@ -115,10 +135,17 @@
 </body>
 <script>
 $(document).ready(function(){
+  $('#verkefna_ferill').hide();
   $('#edit_scription').hide();
   $('#button_breyta').click(function(){
     $('#De_scription').hide();
+    $('#verkefna_ferill').hide();
     $('#edit_scription').show();
+  });
+  $('#verkefnaferil').click(function(){
+    $('#De_scription').hide();
+    $('#edit_scription').hide();
+    $('#verkefna_ferill').show();
   });
 
 });

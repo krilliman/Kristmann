@@ -12,6 +12,8 @@ return array(
     'CreateVefcommentsTable' => $baseDir . '/database/migrations/2015_11_05_233432_create_vefcomments_table.php',
     'CreateVefspurnTable' => $baseDir . '/database/migrations/2015_10_21_151239_create_vefspurn_table.php',
     'CreateVerkcommentsTable' => $baseDir . '/database/migrations/2015_11_05_233732_create_verkcomments_table.php',
+    'CreateVerkcommentsTable' => $baseDir . '/database/migrations/2015_11_10_141936_create_verkcomments_table.php',
+    'CreateVerkefnaferillTable' => $baseDir . '/database/migrations/2015_11_13_160645_create_verkefnaferill_table.php',
     'CreateVerktakarTable' => $baseDir . '/database/migrations/2015_10_29_150000_create_verktakar_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',

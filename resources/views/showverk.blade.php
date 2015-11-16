@@ -15,19 +15,27 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   </head>
   <body>
-  <div class="container" id="testtest">
+  <div class="container">
 
     <form class="form-horizontal" role="form" method="POST" action="/VerksaveComment">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="post_name" value="{{ $verktakar->id }}">
+      <input type="hidden" name="current_user" value="{{ $user->username }}">
+      <input type="hidden" name="current_userPhoto" value="{{ $user->profilephoto }}">
     <div class="col-md-6 col-md-offset-3">
       <h1>{{ $verktakar->title }}@if($user->username == $verktakar->hofundur)
         [<a href="{{url('/verktakar/Edit', $verktakar->id)}}">Edit</a>]
-        <input type="hidden" name="post_name" value="{{ $verktakar->id }}">
-        <input type="hidden" name="current_user" value="{{ $user->username }}">
+
       @else
       @endif</h1>
         <article>
           {{ $verktakar->body}}
+          <h6>
+           <a href="{{ url('index', $verktakar->hofundur)}}" style="font-size:100%;color:black;">
+             Written By:  {{$verktakar->hofundur}}
+             <img src="../{{$verktakar->current_photo}}"  height="30" style="display:inline" >
+           </a></h6>
+
         </article>
 
     </div>
@@ -36,13 +44,13 @@
     @foreach ($verkcomments as $comments)
       @if($comments->post_name == $verktakar->id)
 
-    <div class="col-md-6 col-md-offset-3">
-      <h1>{{ $comments->current_user }}</h1>
-      <p>{{ $comments->comment }}</p>
-      <div class=" navbar col-md-offset-2" id="submit_myndir">
-        <img src="../{{ $user->profilephoto }}"  height="50" >
-    </div>
-  </div>
+      <div class="col-md-6 col-md-offset-3">
+        <a href="{{ url('index', $comments->current_user)}}" style="font-size:200%;color:black;">
+          <img src="../{{$comments->current_userPhoto}}"  height="30" style="display:inline" >
+          {{ $comments->current_user }}
+        </a>
+        <p>{{ $comments->comment }}</p>
+      </div>
   @else
   @endif
 

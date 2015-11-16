@@ -19,7 +19,7 @@
 	<![endif]-->
 </head>
 <body>
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -43,6 +43,7 @@
 					@else
 								<li><a href="{{url('/index', $user->id)}}">Profile</a></li>
 								<li><a href="/auth/logout">Logout</a></li>
+
 							</ul>
 						</li>
 				</ul>
