@@ -5,6 +5,7 @@ use App\User;
 use App\Vefspurn;
 use App\Verktakar;
 use App\Vefcomments;
+use App\Verkcomments;
 use App\Http\Requests;
 //use App\Http\Controllers\Controller;
 use App\config;
@@ -93,9 +94,10 @@ class PagesController extends Controller {
         else
         {
         $user = Auth::user();
+        $vefcomments = Vefcomments::latest('created_at')->get();
         $vefsida = Vefspurn::findOrFail($id);
 
-        return view('show', compact('vefsida','user'));
+        return view('show', compact('vefsida','user','vefcomments'));
       }
   }
 
@@ -108,8 +110,9 @@ class PagesController extends Controller {
         {
         $user = Auth::user();
         $verktakar = Verktakar::findOrFail($id);
+        $verkcomments = Verkcomments::latest('created_at')->get();
 
-        return view('showverk', compact('verktakar','user'));
+        return view('showverk', compact('verktakar','user','verkcomments'));
       }
   }
 
@@ -239,6 +242,14 @@ public function PhotoId(){
       $user = Auth::user();
       $input = Request::all();
       Vefcomments::Create($input);
+      return redirect()->back();
+  }
+  public function verkComments()
+  {
+
+      $user = Auth::user();
+      $input = Request::all();
+      Verkcomments::Create($input);
       return redirect()->back();
   }
 
