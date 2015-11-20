@@ -1,10 +1,76 @@
 @extends('app')
 
 @section('content')
-<div class="col-sm-8">
-      <h2>Vefsíðulýsing</h2><br>
-      <h4>Góðan dag notandi, þessi síða var hönnuð til að vera milliliður á milli kaupanda og seljanda á vinnu. Hér getiru skrifað umsókn um aðila í vinnu eða umsókn um vinnu sem aðili.</h4><br>
+
+
+      <h2>Vefsíður top3</h2><br>
+      @foreach ($verktakar as $verktakar)
+
+      @endforeach
+      <div class="col-md-6">
+        <ul class="nav">
+                <li><h1>Verktakar</h1></li>
+
+        @if(count($verktakar->all()) > 3)
+            @for($i = 0;$i < 3;$i++)
+            <li><h2>
+            <a href="{{url('/verktakar',  $verktakar->all()[$i]->id)}}">{{ $verktakar->all()[$i]->title }}</a>
+          </h2></li>
+            @if(strlen($verktakar->all()[$i]->body) > 250) <li>{{
+              substr($verktakar->all()[$i]->body,0,249) }}...</li>
+            @else
+            <li> {{$verktakar->all()[$i]->body}} </li>
+            @endif
+      @endfor
+      @else
+      @for($i = 0; $i < count($verktakar->all());$i++)
+                <li><h2>
+                  <a href="{{url('/verktakar',  $verktakar->all()[$i]->id)}}">{{ $verktakar->all()[$i]->title }}</a>
+                </h2></li>
+                  @if(strlen($verktakar->all()[$i]->body) > 250)<li> {{
+                    substr($verktakar->all()[$i]->body,0,249) }}... </li>
+                  @else
+                  <li> {{$verktakar->all()[$i]->body}} </li>
+                  @endif
+          @endfor
+
+      @endif
+      </ul>
+
     </div>
+      @foreach ($vefsida as $vefsida)
+
+      @endforeach
+      <div class="col-md-6" >
+      <ul class="nav">
+              <li><h1>Vefsíður</h1></li>
+      @if(count($vefsida) > 3)
+      @for($i = 0; $i < 3;$i++)
+      <li><h2>
+          <a href="{{url('/vefsida',  $vefsida->all()[$i]->id)}}">{{ $vefsida->all()[$i]->title }}</a>
+        </h2></li>
+          @if(strlen($vefsida->all()[$i]->body) > 250)<li>{{
+          substr($vefsida->all()[$i]->body,0,249) }}...</li>
+          @else
+          <li>{{$vefsida->all()[$i]->body}}</li>
+          @endif
+    @endfor
+    @else
+    @for($i = 0; $i < count($vefsida->all());$i++)
+              <li><h2>
+                <a href="{{url('/vefsida',  $vefsida->all()[$i]->id)}}">{{ $vefsida->all()[$i]->title }}</a>
+              </h2></li>
+                @if(strlen($vefsida->all()[$i]->body) > 250)<li>{{
+                  substr($vefsida->all()[$i]->body,0,249) }}...</li>
+                @else
+                <li>{{$vefsida->all()[$i]->body}}</li>
+                @endif
+        @endfor
+
+   @endif
+</ul>
+
+ </div>
 
 
 

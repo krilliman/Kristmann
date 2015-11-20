@@ -29,7 +29,9 @@ class PagesController extends Controller {
 
     else
       $user = Auth::user();
-      return view('indextest2', compact('user'));
+      $vefsida = Vefspurn::orderBy('viewcount', 'desc')->get();
+      $verktakar = Verktakar::orderBy('viewcount', 'desc')->get();
+      return view('indextest2', compact('user','vefsida','verktakar'));
     }
 
   public function signUp()
@@ -39,11 +41,10 @@ class PagesController extends Controller {
   public function profile($username)
 	{
     $curruser = Auth::user();
-
-    $user = User::findOrFail($id);
+    $user = User::get()->where('username', $username)->first();
     $comments = Profilecomments::latest('created_at')->get();
     $verkefnaf = Verkefnaferills::latest('created_at')->get();
-    if($user->id == $curruser->id)
+    if($user->username == $curruser->username)
     {
 		return view('profile', compact('user','comments','curruser', 'verkefnaf'));
 
@@ -57,15 +58,15 @@ class PagesController extends Controller {
 	{
 
 			$input = Request::all();
-			$user = new User;
-      if(User::find($input['username']))
+      $user = User::where('username', '=' ,$input::get('username'))->first();
+      if($user != null)
       {
-        ?><script> alert("Username already taken") </script> <?php
         return redirect()->back();
 
       }
       else
       {
+			  $user = new User;
         $input['password'] = bcrypt($input['password']);
         $input['profilephoto'] = '/images/alfa.png';
         User::create($input);
@@ -110,6 +111,8 @@ class PagesController extends Controller {
         $user = Auth::user();
         $vefcomments = Vefcomments::latest('created_at')->get();
         $vefsida = Vefspurn::findOrFail($id);
+        $vefsida->viewcount = $vefsida->viewcount + 1;
+        $vefsida->save();
 
         return view('show', compact('vefsida','user','vefcomments'));
       }
@@ -124,7 +127,7 @@ class PagesController extends Controller {
         {
         $user = Auth::user();
         $verktakar = Verktakar::findOrFail($id);
-        $verkcomments = Verk::latest('created_at')->get();
+        $verkcomments = Verkcomments::latest('created_at')->get();
 
         return view('showverk', compact('verktakar','user','verkcomments'));
       }
@@ -196,12 +199,13 @@ public function vefedited($id){
       $user = Auth::user();
       $input = Request::all();
       $vefsida = Vefspurn::find($input['id']);
+      $vefcomments = Vefcomments::latest('created_at')->get();
       //dd($vefsida);
       $vefsida->title = $input['title'];
       $vefsida->body = $input['body'];
 
       $vefsida->save();
-      return view('show', compact('user','vefsida'));
+      return view('show', compact('user','vefsida','vefcomments'));
   }
 }
 
@@ -220,12 +224,13 @@ public function vefedited($id){
       $user = Auth::user();
       $input = Request::all();
       $verktakar = Verktakar::find($input['id']);
+      $verkcomments = Verkcomments::latest('created_at')->get();
       //dd($vefsida);
       $verktakar->title = $input['title'];
       $verktakar->body = $input['body'];
 
       $verktakar->save();
-      return view('showverk', compact('user','verktakar'));
+      return view('showverk', compact('user','verktakar','verkcomments'));
     }
   }
 public function PhotoId(){
@@ -308,7 +313,7 @@ public function PhotoId(){
 
   public function breytacomments()
   {
-    
+
   }
 
 }

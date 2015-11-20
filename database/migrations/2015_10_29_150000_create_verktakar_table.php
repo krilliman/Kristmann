@@ -19,6 +19,8 @@ class CreateVerktakarTable extends Migration {
 			$table->text('body');
 			$table->text('hofundur');
 			$table->text('current_photo');
+			$table->text('starfsmadur');
+			$table->integer('viewcount');
 			$table->timestamps();
 			$table->timestamp('published_at');
 		});
