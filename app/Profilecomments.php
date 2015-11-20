@@ -2,14 +2,14 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Vefspurn extends Model {
+class Profilecomments extends Model {
 
 	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['id', 'title', 'body','hofundur', 'current_photo' , 'starfsmadur', 'view_count'];
+	protected $fillable = ['id', 'profile_name', 'comment', 'current_user'];
 	//
 
 }

@@ -5,14 +5,21 @@ use App\User;
 use App\Vefspurn;
 use App\Verktakar;
 use App\Vefcomments;
+use App\Profilecomments;
 use App\Verkcomments;
 use App\Verkefnaferills;
+use App\Forsida;
 use App\Http\Requests;
 //use App\Http\Controllers\Controller;
 use App\config;
 use Request;
 use Input;
 use Auth;
+?><html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<?php
 
 class PagesController extends Controller {
 
@@ -28,8 +35,24 @@ class PagesController extends Controller {
 
     else
       $user = Auth::user();
-      return view('indextest2', compact('user'));
+			$forsida = Forsida::get()->where('id', 1)->first();
+      return view('indextest2', compact('user', 'forsida'));
     }
+		public function frettin()
+		{
+
+			$input = Request::all();
+			$image_name = Request::file('photo')->getClientOriginalName();
+			$input = Request::file('photo')->move(base_path().'/public/images', $image_name);
+			$post = (Request::except(['photo']));
+			$post['photo'] = $image_name;
+			$pathToFile = '/images/frettir/' . $post['photo'];
+			$forsida->frettmynd = $pathToFile;
+			$frettedit = Forsida::get()->where('id', 1)->first();
+			$frettedit->frettdagsins = $input['frettinn'];
+			$frettedit->save();
+			return redirect()->back();
+		}
 
   public function signUp()
 	{
@@ -38,14 +61,17 @@ class PagesController extends Controller {
   public function profile($username)
 	{
     $curruser = Auth::user();
-    $verkefnaf = Verkefnaferills::latest('created_at')->get();
+
     $user = User::get()->where('username', $username)->first();
+    $comments = Profilecomments::latest('created_at')->get();
+    $verkefnaf = Verkefnaferills::latest('created_at')->get();
     if($user->username == $curruser->username)
     {
-		return view('profile', compact('user', 'verkefnaf'));
+		return view('profile', compact('user','comments','curruser', 'verkefnaf'));
+
     }
     else {
-      return view('profileguest', compact('user'));
+      return view('profileguest', compact('user','comments','curruser'));
     }
 	}
 
@@ -53,15 +79,33 @@ class PagesController extends Controller {
 	{
 
 			$input = Request::all();
-			$user = new User;
+      //$rules = array($input['username'] => 'unique:users,username');
+      //$validator = Validator::make($input['username'], $rules);
       if(User::find($input['username']))
       {
-        ?><script> alert("Username already taken") </script> <?php
-        return redirect()->back();
+        ?>
+
+        <html>
+        <div class="alert alert-danger" role="alert" id="alertbox">
+            <p class="alert-link">Notendanafn Í Notkun</p>
+        </div>
+        <script>
+        $(document).ready(function(){
+         setTimeout(function(){
+        $("#alertbox").fadeOut("slow", function () {
+        $("#alertbox").remove();
+            });
+
+        }, 1500);
+        });
+        </script>
+
+        <?php
 
       }
       else
       {
+  			$user = new User;
         $input['password'] = bcrypt($input['password']);
         $input['profilephoto'] = '/images/alfa.png';
         User::create($input);
@@ -262,6 +306,31 @@ public function PhotoId(){
       Verkcomments::Create($input);
       return redirect()->back();
   }
+
+  public function profileComments()
+  {
+
+      $user = Auth::user();
+      $input = Request::all();
+      profilecomments::Create($input);
+      return redirect()->back();
+  }
+  public function contact()
+  {
+
+          $user = Auth::user();
+    return view("/Contact", compact('user'));
+  }
+  public function kristmann()
+  {
+        $user = Auth::user();
+    return view("/Kristmann", compact('user'));
+  }
+  public function helgi()
+  {
+        $user = Auth::user();
+    return view("/Helgi", compact('user'));
+  }
   public function veljamann($username)
   {
       $input = Request::all();
@@ -279,7 +348,6 @@ public function PhotoId(){
 
   public function breytacomments()
   {
-    
-  }
 
+  }
 }

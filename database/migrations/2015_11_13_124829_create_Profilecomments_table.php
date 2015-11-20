@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVerkcommentsTable extends Migration {
+class CreateProfilecommentsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,10 +12,10 @@ class CreateVerkcommentsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('verkcomments', function(Blueprint $table)
+		Schema::create('profilecomments', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->text('post_name');
+			$table->text('profile_name');
 			$table->text('comment');
 			$table->text('current_user');
 			$table->timestamps();
@@ -29,7 +29,7 @@ class CreateVerkcommentsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('verkcomments');
+		Schema::drop('profilecomments');
 	}
 
 }
