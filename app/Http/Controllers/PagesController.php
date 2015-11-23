@@ -8,12 +8,18 @@ use App\Vefcomments;
 use App\Profilecomments;
 use App\Verkcomments;
 use App\Verkefnaferills;
+use App\Forsida;
 use App\Http\Requests;
 //use App\Http\Controllers\Controller;
 use App\config;
 use Request;
 use Input;
 use Auth;
+?><html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<?php
 
 class PagesController extends Controller {
 
@@ -31,8 +37,24 @@ class PagesController extends Controller {
       $user = Auth::user();
       $vefsida = Vefspurn::orderBy('viewcount', 'desc')->get();
       $verktakar = Verktakar::orderBy('viewcount', 'desc')->get();
-      return view('indextest2', compact('user','vefsida','verktakar'));
+      $forsida = Forsida::get()->where('id', 1)->first();
+      return view('indextest2', compact('user','vefsida','verktakar', 'forsida'));
     }
+		public function frettin()
+		{
+
+			$input = Request::all();
+			$image_name = Request::file('photo')->getClientOriginalName();
+			$input = Request::file('photo')->move(base_path().'/public/images', $image_name);
+			$post = (Request::except(['photo']));
+			$post['photo'] = $image_name;
+			$pathToFile = '/images/frettir/' . $post['photo'];
+			$forsida->frettmynd = $pathToFile;
+			$frettedit = Forsida::get()->where('id', 1)->first();
+			$frettedit->frettdagsins = $input['frettinn'];
+			$frettedit->save();
+			return redirect()->back();
+		}
 
   public function signUp()
 	{
@@ -58,15 +80,39 @@ class PagesController extends Controller {
 	{
 
 			$input = Request::all();
+    /*
       $user = User::where('username', '=' ,$input::get('username'))->first();
       if($user != null)
       {
         return redirect()->back();
+    */
+      
+      if(User::find($input['username']))
+      {
+        ?>
+
+        <html>
+        <div class="alert alert-danger" role="alert" id="alertbox">
+            <p class="alert-link">Notendanafn Í Notkun</p>
+        </div>
+        <script>
+        $(document).ready(function(){
+         setTimeout(function(){
+        $("#alertbox").fadeOut("slow", function () {
+        $("#alertbox").remove();
+            });
+
+        }, 1500);
+        });
+        </script>
+
+        <?php
 
       }
       else
       {
-			  $user = new User;
+
+  			$user = new User;
         $input['password'] = bcrypt($input['password']);
         $input['profilephoto'] = '/images/alfa.png';
         User::create($input);
@@ -127,7 +173,7 @@ class PagesController extends Controller {
         {
         $user = Auth::user();
         $verktakar = Verktakar::findOrFail($id);
-        $verkcomments = Verkcomments::latest('created_at')->get();
+        $verkcomments = Verk::latest('created_at')->get();
 
         return view('showverk', compact('verktakar','user','verkcomments'));
       }
@@ -316,4 +362,4 @@ public function PhotoId(){
 
   }
 
-}
+}//slaufusvigi??

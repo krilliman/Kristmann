@@ -26,6 +26,7 @@
 
     <div class="col-md-6 col-md-offset-3">
       <h1>{{ $vefsida->title }}</h1>
+
       <div class="modal" id="myModal" role="dialog">
         <div class="modal-dialog">
 
@@ -73,6 +74,7 @@
               </form>
             </div>
 
+<<<<<<< HEAD
 
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -92,6 +94,7 @@
 
       </h6>
         <p>Views : {{ $vefsida->viewcount }}</p>
+
 
       </article>
     </div>

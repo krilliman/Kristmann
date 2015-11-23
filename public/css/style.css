@@ -231,12 +231,20 @@ a, a:hover{
 #vefposts{
 	margin-left: 1050px;
 }
+
 #starf{
 	margin-left: 00px;
 }
 #starf1{
 	margin-left: 0px;
 }
+/*
+#starf{
+	margin-left: 250px;
+}
+#starf1{
+	margin-left: 250px;
+}*/
 #comments{
 	margin-bottom:125px;
 }

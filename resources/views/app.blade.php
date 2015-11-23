@@ -47,7 +47,7 @@
 							</ul>
 						</li>
 				</ul>
-			</div
+			</div>
 					 	@endif
 		</div>
 	</nav>
