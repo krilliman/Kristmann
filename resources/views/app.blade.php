@@ -41,7 +41,7 @@
 						<li><a href="/">Login</a></li>
 						<li><a href="/auth/register">Register</a></li>
 					@else
-								<li><a href="{{url('/index', $user->id)}}">Profile</a></li>
+								<li><a href="{{url('/index', $user->username)}}">Profile</a></li>
 								<li><a href="/auth/logout">Logout</a></li>
 
 							</ul>
@@ -78,7 +78,7 @@
                                <!-- /.nav-second-level -->
                            </li>
 													 @endif
-													 <div  class="col-md-5" >
+													 <div  class="col-md-8" >
 													 	@yield('content')
 													</div>
                        </ul>

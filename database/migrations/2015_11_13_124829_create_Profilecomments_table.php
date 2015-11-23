@@ -29,7 +29,7 @@ class CreateProfilecommentsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('profilecomments', function(Blueprint $table)
+		Schema::drop('profilecomments', function(Blueprint $table)
 		{
 			//
 		});
