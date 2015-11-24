@@ -43,12 +43,12 @@ class PagesController extends Controller {
 
 			$input = Request::all();
 			$image_name = Request::file('photo')->getClientOriginalName();
-			$input = Request::file('photo')->move(base_path().'/public/images', $image_name);
+			$inputt = Request::file('photo')->move(base_path().'/public/images/frettir', $image_name);
 			$post = (Request::except(['photo']));
 			$post['photo'] = $image_name;
-			$pathToFile = '/images/frettir/' . $post['photo'];
-			$forsida->frettmynd = $pathToFile;
+			$pathToFile = '/public/images/frettir/' . $post['photo'];
 			$frettedit = Forsida::get()->where('id', 1)->first();
+			$frettedit->frettmynd = $pathToFile;
 			$frettedit->frettdagsins = $input['frettinn'];
 			$frettedit->save();
 			return redirect()->back();

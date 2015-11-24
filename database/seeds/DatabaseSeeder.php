@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use App\Forsida;
 
 class DatabaseSeeder extends Seeder {
 
@@ -10,11 +11,21 @@ class DatabaseSeeder extends Seeder {
 	 *
 	 * @return void
 	 */
-	public function run()
-	{
-		Model::unguard();
+	 public function run()
+     {
+         $this->call('ForsidaTableSeeder');
 
-		// $this->call('UserTableSeeder');
-	}
+         $this->command->info('Forsida table seeded!');
+     }
+
+}
+class ForsidaTableSeeder extends Seeder {
+
+    public function run()
+    {
+        //DB::table('forsidas')->delete();
+
+        Forsida::create(['frettdagsins' => 'ekkert i dag']);
+    }
 
 }

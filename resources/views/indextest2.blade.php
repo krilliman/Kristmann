@@ -55,8 +55,6 @@ Bæta við admin aðgang, getur postað posts á index síðu.
         <textarea class="form-control" placeholder="Ný Frétt" name="frettinn"></textarea>
         <input type="submit" value="Staðfesta frett" class="btn btn-orimary btn-lg">
         <br>
-        <input type="submit" class="btn btn-orimary btn-lg" value="Staðfesta Mynd">
-        <br>
         <input type="file" name="photo" accept="image/*">
         </form>
       </div>
