@@ -1,10 +1,6 @@
 @extends('app')
 
 @section('hello')
-<div class="col-sm-8">
-
-    </div>
-
 
       <h2>Vefsíður top3</h2><br>
       @foreach ($verktakar as $verktakar)
@@ -82,11 +78,13 @@
 @stop
 @section('content')
 <div class="col-sm-13">
+
   <div>
     <h1>Frétt Dagsins</h1>
     <br>
     <h4>{{$forsida->frettdagsins}}</h4>
   </div>
+
 <div class="modal" id="editfrett" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->

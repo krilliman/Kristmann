@@ -73,15 +73,15 @@ class PagesController extends Controller {
 	{
     $curruser = Auth::user();
     $user = User::get()->where('username', $username)->first();
-    $comments = Profilecomments::latest('created_at')->get();
+    $profilecomments = Profilecomments::latest('created_at')->get();
     $verkefnaf = Verkefnaferills::latest('created_at')->get();
     if($user->username == $curruser->username)
     {
-		return view('profile', compact('user','comments','curruser', 'verkefnaf'));
+		return view('profile', compact('user','profilecomments','curruser', 'verkefnaf'));
 
     }
     else {
-      return view('profileguest', compact('user','comments','curruser'));
+      return view('profileguest', compact('user','profilecomments','curruser','verkefnf'));
     }
 	}
 
@@ -182,7 +182,9 @@ class PagesController extends Controller {
         {
         $user = Auth::user();
         $verktakar = Verktakar::findOrFail($id);
-        $verkcomments = Verktakar::latest('created_at')->get();
+        $verkcomments = Verkcomments::latest('created_at')->get();
+        $verktakar->viewcount = $verktakar->viewcount + 1;
+        $verktakar->save();
 
         return view('showverk', compact('verktakar','user','verkcomments'));
       }
@@ -228,7 +230,6 @@ public function createverk()
       {
       $user = Auth::user();
       $vefsida = Vefspurn::findOrFail($id);
-      //dd($vefsida);
 
       return view('VefEdit', compact('vefsida','user'));
     }
@@ -242,7 +243,6 @@ public function createverk()
         {
         $user = Auth::user();
         $verktakar = Verktakar::findOrFail($id);
-        //dd($vefsida);
 
         return view('VerkEdit', compact('verktakar','user'));
       }
@@ -351,7 +351,7 @@ public function PhotoId(){
         $user = Auth::user();
     return view("/Helgi", compact('user'));
   }
-  public function veljamann($username)
+	public function veljamann($username)
   {
       $input = Request::all();
       $vefmann = Vefspurn::find($input['post_id']);
@@ -365,10 +365,45 @@ public function PhotoId(){
 
       return redirect()->back();
   }
+	  public function Veljaverktaka($username)
+	  {
+	      $input = Request::all();
+	      $verkmann = Verktakar::find($input['post_id']);
+	      $user = User::get()->where('username', $input['post_user'])->first();
+	      $user->verkefni = $input['post_title'];
+	      $verkmann->starfsmadur = $input['post_user'];
+	      $user->save();
+	      $verkmann->save();
 
-  public function breytacomments()
+	      Verkefnaferills::Create($input);
+
+	      return redirect()->back();
+	  }
+
+  public function breytacommentsvef()
   {
-
+		$input = Request::all();
+		$vefcomments = Vefcomments::find($input['id']);
+		$vefcomments->comment = $input['comment'];
+		$vefcomments->save();
+    return redirect()->back();
   }
+
+	public function breytacommentsverk()
+	{
+		$input = Request::all();
+		$verkcomments = Verkcomments::find($input['id']);
+		$verkcomments->comment = $input['comment'];
+		$verkcomments->save();
+		return redirect()->back();
+	}
+	public function breytacommentsprofile()
+	{
+		$input = Request::all();
+		$profilecomments = Profilecomments::find($input['id']);
+		$profilecomments->comment = $input['comment'];
+		$profilecomments->save();
+		return redirect()->back();
+	}
 
 }//slaufusvigi??
