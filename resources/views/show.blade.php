@@ -18,7 +18,7 @@
    <link rel="stylesheet" type="text/css" href="../css/style.css">
 
    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-     <link rel="stylesheet" type="text/css" href="../css/simpletextrotator.css" />
+   <link rel="stylesheet" type="text/css" href="../css/simpletextrotator.css" />
 
   <div class="container">
 <body>
@@ -74,7 +74,6 @@
               </form>
             </div>
 
-<<<<<<< HEAD
 
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

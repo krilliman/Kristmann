@@ -44,14 +44,23 @@ class PagesController extends Controller {
 		{
 
 			$input = Request::all();
-			$image_name = Request::file('photo')->getClientOriginalName();
-			$input = Request::file('photo')->move(base_path().'/public/images', $image_name);
-			$post = (Request::except(['photo']));
-			$post['photo'] = $image_name;
-			$pathToFile = '/images/frettir/' . $post['photo'];
-			$forsida->frettmynd = $pathToFile;
 			$frettedit = Forsida::get()->where('id', 1)->first();
-			$frettedit->frettdagsins = $input['frettinn'];
+			/*if(count($input) == 4)
+			{
+				$image_name = Request::file('photo')->getClientOriginalName();
+				$inputt = Request::file('photo')->move(base_path().'/public/images/frettir', $image_name);
+				$post = (Request::except(['photo']));
+				$post['photo'] = $image_name;
+				$pathToFile = '/images/frettir/' . $post['photo'];
+
+				$frettedit->frettmynd = $pathToFile;
+				$frettedit->frettdagsins = $input['frettinn'];
+
+			}
+			else*/
+				$frettedit = Forsida::get()->where('id', 1)->first();
+				$frettedit->frettdagsins = $input['frettinn'];
+
 			$frettedit->save();
 			return redirect()->back();
 		}
@@ -86,7 +95,7 @@ class PagesController extends Controller {
       {
         return redirect()->back();
     */
-      
+
       if(User::find($input['username']))
       {
         ?>
@@ -173,7 +182,7 @@ class PagesController extends Controller {
         {
         $user = Auth::user();
         $verktakar = Verktakar::findOrFail($id);
-        $verkcomments = Verk::latest('created_at')->get();
+        $verkcomments = Verktakar::latest('created_at')->get();
 
         return view('showverk', compact('verktakar','user','verkcomments'));
       }

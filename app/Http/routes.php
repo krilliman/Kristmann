@@ -59,11 +59,6 @@ Route::get('/kristmann', 'PagesController@kristmann');
 Route::get('/contact', 'PagesController@contact');
 
 
-Route::get('/helgi', 'PagesController@helgi');
-Route::get('/kristmann', 'PagesController@kristmann');
-Route::get('/contact', 'PagesController@contact');
-
-
 
 Route::get('home', 'HomeController@index');
 
