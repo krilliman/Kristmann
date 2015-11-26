@@ -37,8 +37,10 @@ Route::post('/VefsaveComment', 'PagesController@vefComments');
 Route::post('/VerksaveComment', 'PagesController@verkComments');
 
 Route::post('/profilesaveComment', 'PagesController@profileComments');
-Route::post('/indexEdit', 'PagesController@adminedit');
+
+
 Route::post('/frett', 'PagesController@frettin');
+
 
 Route::post('/veljamann/{username}', 'PagesController@veljamann');
 
@@ -47,9 +49,9 @@ Route::post('/reddescrip', 'PagesController@editDescription');
 
 
 Route::post('/vefsida/{id}', 'PagesController@vefedited');
-Route::get('/Vefsida/Edit/{id}', 'PagesController@vefedit');
+Route::post('/Vefsida/Edit/{id}', 'PagesController@vefedit');
 Route::post('/verktakar/{id}', 'PagesController@verkedited');
-Route::get('/Verktakar/Edit/{id}', 'PagesController@verkedit');
+Route::post('/Verktakar/Edit/{id}', 'PagesController@verkedit');
 
 
 Route::get('/helgi', 'PagesController@helgi');

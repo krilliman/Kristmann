@@ -1,6 +1,7 @@
 @extends('app')
 
 @section('content')
+
 <html>
 <head>
  <meta charset="utf-8">
@@ -55,4 +56,4 @@
 </div>
 @stop
 
-@stop
+

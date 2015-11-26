@@ -15,15 +15,9 @@ class CreateForsidaTable extends Migration {
 		Schema::create('forsidas', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('frettdagsins');
-			$table->string('frettmynd');
+			$table->string('frettdagsins', 1000);
 			$table->timestamps();
 		});
-			//Schema::insert(insert into forsidas ('id', 'frettdagsins', 'frettmynd', 'created_at') VALUES (1, 'Engin Frétt Í Dag', 'yoyo', 'now()'));
-
-	Schema::table('forsidas')->insert(
-			['frettdagsins' => 'Ekki neitt í dag']
-		);
 	}
 
 	/**

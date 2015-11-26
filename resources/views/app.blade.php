@@ -78,7 +78,7 @@
                                <!-- /.nav-second-level -->
                            </li>
 													 @endif
-													 <div  class="col-md-5" >
+													 <div  class="col-md-8" >
 													 	@yield('content')
 													</div>
                        </ul>

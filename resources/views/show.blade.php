@@ -18,14 +18,15 @@
    <link rel="stylesheet" type="text/css" href="../css/style.css">
 
    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-     <link rel="stylesheet" type="text/css" href="../css/simpletextrotator.css" />
+   <link rel="stylesheet" type="text/css" href="../css/simpletextrotator.css" />
 
   <div class="container">
 <body>
 
 
     <div class="col-md-6 col-md-offset-3">
-      <h1>{{ $vefsida->title }}
+      <h1>{{ $vefsida->title }}</h1>
+
       <div class="modal" id="myModal" role="dialog">
         <div class="modal-dialog">
 
@@ -73,6 +74,7 @@
               </form>
             </div>
 
+
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
@@ -90,12 +92,8 @@
         </a>
 
       </h6>
-      @if($vefsida->starfsmadur !== 'none')
-        <h3 id="starf">Verkefnið Er Í Vinnslu Af : {{$vefsida->starfsmadur}}</h3>
+        <p>Views : {{ $vefsida->viewcount }}</p>
 
-      @else
-      <h3 id="starf1" >Verkefni Enþá opið</h3>
-      @endif
 
       </article>
     </div>
@@ -104,11 +102,20 @@
 
       <form class="form-horizontal" role="form" method="POST" action="{{url('/Vefsida/Edit', $vefsida->id)}}">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-      <button type="submit" class="btn btn-primary btn-lg">Edit</a>
+      <button type="submit" class="btn btn-primary btn-lg">Edit</a></button>
       </form>
       <br>
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Velja Starfsmann</button>
   </form>
+  <div>
+    @if($vefsida->starfsmadur !== 'none')
+            <p>Starfsmaður: <b>{{$vefsida->starfsmadur}}</b></p>
+
+          @else
+          <p>Óvalinn</p>
+          @endif
+  </div>
+
     @endif
   <form class="form-horizontal" role="form" method="POST" action="/VefsaveComment">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">

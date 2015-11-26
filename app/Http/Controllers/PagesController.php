@@ -35,21 +35,32 @@ class PagesController extends Controller {
 
     else
       $user = Auth::user();
-			$forsida = Forsida::get()->where('id', 1)->first();
-      return view('indextest2', compact('user', 'forsida'));
+      $vefsida = Vefspurn::orderBy('viewcount', 'desc')->get();
+      $verktakar = Verktakar::orderBy('viewcount', 'desc')->get();
+      $forsida = Forsida::get()->where('id', 1)->first();
+      return view('indextest2', compact('user','vefsida','verktakar', 'forsida'));
     }
 		public function frettin()
 		{
 
 			$input = Request::all();
-			$image_name = Request::file('photo')->getClientOriginalName();
-			$inputt = Request::file('photo')->move(base_path().'/public/images/frettir', $image_name);
-			$post = (Request::except(['photo']));
-			$post['photo'] = $image_name;
-			$pathToFile = '/public/images/frettir/' . $post['photo'];
 			$frettedit = Forsida::get()->where('id', 1)->first();
-			$frettedit->frettmynd = $pathToFile;
-			$frettedit->frettdagsins = $input['frettinn'];
+			/*if(count($input) == 4)
+			{
+				$image_name = Request::file('photo')->getClientOriginalName();
+				$inputt = Request::file('photo')->move(base_path().'/public/images/frettir', $image_name);
+				$post = (Request::except(['photo']));
+				$post['photo'] = $image_name;
+				$pathToFile = '/images/frettir/' . $post['photo'];
+
+				$frettedit->frettmynd = $pathToFile;
+				$frettedit->frettdagsins = $input['frettinn'];
+
+			}
+			else*/
+				$frettedit = Forsida::get()->where('id', 1)->first();
+				$frettedit->frettdagsins = $input['frettinn'];
+
 			$frettedit->save();
 			return redirect()->back();
 		}
@@ -61,7 +72,6 @@ class PagesController extends Controller {
   public function profile($username)
 	{
     $curruser = Auth::user();
-
     $user = User::get()->where('username', $username)->first();
     $comments = Profilecomments::latest('created_at')->get();
     $verkefnaf = Verkefnaferills::latest('created_at')->get();
@@ -79,8 +89,13 @@ class PagesController extends Controller {
 	{
 
 			$input = Request::all();
-      //$rules = array($input['username'] => 'unique:users,username');
-      //$validator = Validator::make($input['username'], $rules);
+    /*
+      $user = User::where('username', '=' ,$input::get('username'))->first();
+      if($user != null)
+      {
+        return redirect()->back();
+    */
+
       if(User::find($input['username']))
       {
         ?>
@@ -105,6 +120,7 @@ class PagesController extends Controller {
       }
       else
       {
+
   			$user = new User;
         $input['password'] = bcrypt($input['password']);
         $input['profilephoto'] = '/images/alfa.png';
@@ -150,6 +166,8 @@ class PagesController extends Controller {
         $user = Auth::user();
         $vefcomments = Vefcomments::latest('created_at')->get();
         $vefsida = Vefspurn::findOrFail($id);
+        $vefsida->viewcount = $vefsida->viewcount + 1;
+        $vefsida->save();
 
         return view('show', compact('vefsida','user','vefcomments'));
       }
@@ -164,7 +182,7 @@ class PagesController extends Controller {
         {
         $user = Auth::user();
         $verktakar = Verktakar::findOrFail($id);
-        $verkcomments = Verk::latest('created_at')->get();
+        $verkcomments = Verktakar::latest('created_at')->get();
 
         return view('showverk', compact('verktakar','user','verkcomments'));
       }
@@ -236,12 +254,13 @@ public function vefedited($id){
       $user = Auth::user();
       $input = Request::all();
       $vefsida = Vefspurn::find($input['id']);
+      $vefcomments = Vefcomments::latest('created_at')->get();
       //dd($vefsida);
       $vefsida->title = $input['title'];
       $vefsida->body = $input['body'];
 
       $vefsida->save();
-      return view('show', compact('user','vefsida'));
+      return view('show', compact('user','vefsida','vefcomments'));
   }
 }
 
@@ -260,12 +279,13 @@ public function vefedited($id){
       $user = Auth::user();
       $input = Request::all();
       $verktakar = Verktakar::find($input['id']);
+      $verkcomments = Verkcomments::latest('created_at')->get();
       //dd($vefsida);
       $verktakar->title = $input['title'];
       $verktakar->body = $input['body'];
 
       $verktakar->save();
-      return view('showverk', compact('user','verktakar'));
+      return view('showverk', compact('user','verktakar','verkcomments'));
     }
   }
 public function PhotoId(){
@@ -350,4 +370,5 @@ public function PhotoId(){
   {
 
   }
-}
+
+}//slaufusvigi??
